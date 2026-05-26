@@ -43,6 +43,11 @@ type MockOptions = {
   failureRate?: number;
   /** Which kind of error to simulate when a call fails. */
   failureType?: AirtableErrorType;
+  /**
+   * Deterministic failure queue. If populated, each API call consumes the next
+   * entry before falling back to random failureRate-based simulation.
+   */
+  failurePlan?: AirtableErrorType[];
 };
 
 export class AirtableMockClient {
@@ -108,6 +113,11 @@ export class AirtableMockClient {
     this.options = { failureRate: rate, failureType: type };
   }
 
+  /** Configure an exact sequence of failures for deterministic retry tests. */
+  __setFailurePlan(plan: AirtableErrorType[]): void {
+    this.options = { ...this.options, failurePlan: [...plan] };
+  }
+
   /** Inspect the in-memory state. Use this in tests to assert what was pushed. */
   __getRecords(): AirtableRecord[] {
     return Array.from(this.records.values());
@@ -121,6 +131,12 @@ export class AirtableMockClient {
   // ---------- internals ----------
 
   private maybeThrow(): void {
+    const plan = this.options.failurePlan;
+    if (plan && plan.length > 0) {
+      const type = plan.shift() ?? "server-error";
+      const statusCode = type === "rate-limit" ? 429 : type === "network" ? 0 : 500;
+      throw new AirtableError(`Simulated ${type}`, type, statusCode);
+    }
     const rate = this.options.failureRate ?? 0;
     if (rate > 0 && Math.random() < rate) {
       const type = this.options.failureType ?? "server-error";
