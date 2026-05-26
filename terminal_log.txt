@@ -1,0 +1,269 @@
+Script started on Tue May 26 11:03:11 2026
+%                                                                                                                                          
+ 
+
+ravirajbugge@RBs-MacBook-Air ajackus_test %   printf "\n\n=== BEFORE FIX: Viewer can update task ===\n"  printf "\n\n=== BEFORE FIX: Viewer can update task ===\n"
+
+
+
+=== BEFORE FIX: Viewer can update task ===
+%                                                                                                                                          
+ 
+
+ravirajbugge@RBs-MacBook-Air ajackus_test % BASE_URL=http://localhost:3000BASE_URL=http://localhost:3000
+
+%                                                                                                                                          
+ 
+
+ravirajbugge@RBs-MacBook-Air ajackus_test % VIEWER_TOKEN=$(curl -s -X POST "$BASE_URL/api/auth/login" \
+
+    -H 'Content-Type: application/json' \
+
+    -d '{"email":"dev@example.com","password":"password123"}' \
+
+    | node -pe 'JSON.parse(require("fs").readFileSync(0,"utf8")).token')VIEWER_TOKEN=$(curl -s -X POST "$BASE_URL/api/auth/login" \
+    -H 'Content-Type: application/json' \
+    -d '{"email":"dev@example.com","password":"password123"}' \
+    | node -pe 'JSON.parse(require("fs").readFileSync(0,"utf8")).token')
+
+%                                                                                                                                          
+ 
+
+ravirajbugge@RBs-MacBook-Air ajackus_test %   curl -i "$BASE_URL/api/projects" \
+
+    -H "Authorization: Bearer $VIEWER_TOKEN"
+
+
+
+  PROJECT_ID=$(curl -s "$BASE_URL/api/projects" \
+
+    -H "Authorization: Bearer $VIEWER_TOKEN" \
+
+    | node -pe 'JSON.parse(require("fs").readFileSync(0,"utf8")).projects[0].id')  curl -i "$BASE_URL/api/projects" \
+    -H "Authorization: Bearer $VIEWER_TOKEN"
+  PROJECT_ID=$(curl -s "$BASE_URL/api/projects" \
+    -H "Authorization: Bearer $VIEWER_TOKEN" \
+    | node -pe 'JSON.parse(require("fs").readFileSync(0,"utf8")).projects[0].id')
+
+HTTP/1.1 200 OK
+
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+
+content-type: application/json
+
+Date: Tue, 26 May 2026 05:35:06 GMT
+
+Connection: keep-alive
+
+Keep-Alive: timeout=5
+
+Transfer-Encoding: chunked
+
+
+
+{"projects":[{"id":"cmpm4pnwv0006hns1qqbwc0nm","name":"Q3 Launch","description":"Coordinate the Q3 product launch across engineering, design, and marketing.","role":"viewer","owner":{"id":"cmpm4pnwl0000hns1a1j2uo2y","name":"Meera Iyer","email":"meera@taskboard.dev"},"taskCount":7,"createdAt":"2026-05-26T04:22:20.239Z"}]}%                                                                                                                                          
+ 
+
+ravirajbugge@RBs-MacBook-Air ajackus_test %   curl -i "$BASE_URL/api/projects/$PROJECT_ID/tasks" \
+
+    -H "Authorization: Bearer $VIEWER_TOKEN"
+
+
+
+  TASK_ID=$(curl -s "$BASE_URL/api/projects/$PROJECT_ID/tasks" \
+
+    -H "Authorization: Bearer $VIEWER_TOKEN" \
+
+    | node -pe 'JSON.parse(require("fs").readFileSync(0,"utf8")).tasks[0].id')  curl -i "$BASE_URL/api/projects/$PROJECT_ID/tasks" \
+    -H "Authorization: Bearer $VIEWER_TOKEN"
+  TASK_ID=$(curl -s "$BASE_URL/api/projects/$PROJECT_ID/tasks" \
+    -H "Authorization: Bearer $VIEWER_TOKEN" \
+    | node -pe 'JSON.parse(require("fs").readFileSync(0,"utf8")).tasks[0].id')
+
+HTTP/1.1 200 OK
+
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+
+content-type: application/json
+
+Date: Tue, 26 May 2026 05:35:20 GMT
+
+Connection: keep-alive
+
+Keep-Alive: timeout=5
+
+Transfer-Encoding: chunked
+
+
+
+{"tasks":[{"id":"cmpm4pnxc000vhns1haseljm6","projectId":"cmpm4pnwv0006hns1qqbwc0nm","title":"Prepare customer email blast","description":"Detail for: Prepare customer email blast","status":"todo","assigneeId":"cmpm4pnwt0002hns1mhmgku76","createdById":"cmpm4pnwl0000hns1a1j2uo2y","position":4,"createdAt":"2026-05-26T04:22:20.256Z","updatedAt":"2026-05-26T05:06:54.715Z","assignee":{"id":"cmpm4pnwt0002hns1mhmgku76","name":"Kavya Reddy","email":"kavya@example.com"}},{"id":"cmpm4pnxc000xhns13l7bfj4n","projectId":"cmpm4pnwv0006hns1qqbwc0nm","title":"Update pricing page copy","description":"Detail for: Update pricing page copy","status":"todo","assigneeId":null,"createdById":"cmpm4pnwl0000hns1a1j2uo2y","position":5,"createdAt":"2026-05-26T04:22:20.257Z","updatedAt":"2026-05-26T04:56:27.188Z","assignee":null},{"id":"cmpm4pnxd000zhns1gskwuobb","projectId":"cmpm4pnwv0006hns1qqbwc0nm","title":"QA the new signup flow end-to-end","description":"Detail for: QA the new signup flow end-to-end","status":"todo","assigneeId":"cmpm4pnwr0001hns171pyzsuh","createdById":"cmpm4pnwl0000hns1a1j2uo2y","position":6,"createdAt":"2026-05-26T04:22:20.257Z","updatedAt":"2026-05-26T04:22:20.257Z","assignee":{"id":"cmpm4pnwr0001hns171pyzsuh","name":"Arjun Rao","email":"arjun@taskboard.dev"}},{"id":"cmpm4pnxa000rhns15ws25un2","projectId":"cmpm4pnwv0006hns1qqbwc0nm","title":"Record demo video","description":"Detail for: Record demo video","status":"in_progress","assigneeId":"cmpm4pnwt0002hns1mhmgku76","createdById":"cmpm4pnwl0000hns1a1j2uo2y","position":2,"createdAt":"2026-05-26T04:22:20.254Z","updatedAt":"2026-05-26T04:22:20.254Z","assignee":{"id":"cmpm4pnwt0002hns1mhmgku76","name":"Kavya Reddy","email":"kavya@example.com"}},{"id":"cmpm4pnxb000thns1bv8smhj3","projectId":"cmpm4pnwv0006hns1qqbwc0nm","title":"Set up analytics dashboards","description":"Detail for: Set up analytics dashboards","status":"in_progress","assigneeId":"cmpm4pnwr0001hns171pyzsuh","createdById":"cmpm4pnwl0000hns1a1j2uo2y","position":3,"createdAt":"2026-05-26T04:22:20.255Z","updatedAt":"2026-05-26T04:22:20.255Z","assignee":{"id":"cmpm4pnwr0001hns171pyzsuh","name":"Arjun Rao","email":"arjun@taskboard.dev"}},{"id":"cmpm4pnx9000phns1dwzs2off","projectId":"cmpm4pnwv0006hns1qqbwc0nm","title":"Draft press release","description":"Detail for: Draft press release","status":"review","assigneeId":"cmpm4pnwr0001hns171pyzsuh","createdById":"cmpm4pnwl0000hns1a1j2uo2y","position":1,"createdAt":"2026-05-26T04:22:20.253Z","updatedAt":"2026-05-26T04:22:20.253Z","assignee":{"id":"cmpm4pnwr0001hns171pyzsuh","name":"Arjun Rao","email":"arjun@taskboard.dev"}},{"id":"cmpm4pnx6000nhns1b6f6tua1","projectId":"cmpm4pnwv0006hns1qqbwc0nm","title":"Finalize launch date with marketing","description":"Detail for: Finalize launch date with marketing","status":"done","assigneeId":"cmpm4pnwl0000hns1a1j2uo2y","createdById":"cmpm4pnwl0000hns1a1j2uo2y","position":0,"createdAt":"2026-05-26T04:22:20.251Z","updatedAt":"2026-05-26T04:22:20.251Z","assignee":{"id":"cmpm4pnwl0000hns1a1j2uo2y","name":"Meera Iyer","email":"meera@taskboard.dev"}}]}%                                                                                                                                          
+ 
+
+ravirajbugge@RBs-MacBook-Air ajackus_test %   curl -i -X PATCH "$BASE_URL/api/tasks/$TASK_ID" \
+
+    -H "Authorization: Bearer $VIEWER_TOKEN" \
+
+    -H 'Content-Type: application/json' \
+
+    -d '{"status":"done"}'  curl -i -X PATCH "$BASE_URL/api/tasks/$TASK_ID" \
+    -H "Authorization: Bearer $VIEWER_TOKEN" \
+    -H 'Content-Type: application/json' \
+    -d '{"status":"done"}'
+
+HTTP/1.1 200 OK
+
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+
+content-type: application/json
+
+Date: Tue, 26 May 2026 05:35:31 GMT
+
+Connection: keep-alive
+
+Keep-Alive: timeout=5
+
+Transfer-Encoding: chunked
+
+
+
+{"task":{"id":"cmpm4pnxc000vhns1haseljm6","projectId":"cmpm4pnwv0006hns1qqbwc0nm","title":"Prepare customer email blast","description":"Detail for: Prepare customer email blast","status":"done","assigneeId":"cmpm4pnwt0002hns1mhmgku76","createdById":"cmpm4pnwl0000hns1a1j2uo2y","position":4,"createdAt":"2026-05-26T04:22:20.256Z","updatedAt":"2026-05-26T05:35:31.123Z","assignee":{"id":"cmpm4pnwt0002hns1mhmgku76","name":"Kavya Reddy","email":"kavya@example.com"}}}%                                                                                                                                          
+ 
+
+ravirajbugge@RBs-MacBook-Air ajackus_test % nnpm run test -- --no -file -parallensm                      
+
+
+> taskboard@0.1.0 test
+> vitest run
+
+The CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.
+
+ RUN  v2.1.8 /Applications/MAMP/htdocs/ajackus_test
+
+ ✓ src/tests/schemas.test.ts (7)
+ ✓ src/tests/schemas.test.ts (7)
+ · src/tests/auth.test.ts (2)
+ ✓ src/tests/schemas.test.ts (7)
+ ✓ src/tests/auth.test.ts (2)
+ · src/tests/task-route-auth.test.ts (3)
+ ✓ src/tests/schemas.test.ts (7)
+ ✓ src/tests/auth.test.ts (2)
+ · src/tests/task-route-auth.test.ts (3)
+ ✓ src/tests/schemas.test.ts (7)
+ · src/tests/TaskCard.test.tsx (3)
+ ✓ src/tests/auth.test.ts (2)
+ ❯ src/tests/task-route-auth.test.ts (3)
+   ❯ PATCH /api/tasks/:id authorization (3)
+     × rejects a non-member before updating the task
+     × rejects a viewer before updating the task
+     ✓ allows a project member to update the task
+ ✓ src/tests/schemas.test.ts (7)
+ · src/tests/TaskCard.test.tsx (3)
+ ✓ src/tests/auth.test.ts (2)
+ ❯ src/tests/task-route-auth.test.ts (3)
+   ❯ PATCH /api/tasks/:id authorization (3)
+     × rejects a non-member before updating the task
+     × rejects a viewer before updating the task
+     ✓ allows a project member to update the task
+ ✓ src/tests/schemas.test.ts (7)
+ ✓ src/tests/TaskCard.test.tsx (3)
+ ✓ src/tests/auth.test.ts (2)
+ ✓ src/tests/TaskCard.test.tsx (3)
+ ✓ src/tests/auth.test.ts (2)
+ ✓ src/tests/schemas.test.ts (7)
+ ❯ src/tests/task-route-auth.test.ts (3)
+   ❯ PATCH /api/tasks/:id authorization (3)
+     × rejects a non-member before updating the task
+     × rejects a viewer before updating the task
+     ✓ allows a project member to update the task
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/tests/task-route-auth.test.ts > PATCH /api/tasks/:id authorization > rejects a non-member before updating the task
+AssertionError: expected 200 to be 403 // Object.is equality
+
+- Expected
++ Received
+
+- 403
++ 200
+
+ ❯ src/tests/task-route-auth.test.ts:81:24
+     79|     const res = await PATCH(patchRequest({ status: "done" }), params);
+     80| 
+     81|     expect(res.status).toBe(403);
+       |                        ^
+     82|     await expect(res.json()).resolves.toEqual({
+     83|       error: "you are not a member of this project",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/tests/task-route-auth.test.ts > PATCH /api/tasks/:id authorization > rejects a viewer before updating the task
+AssertionError: expected 200 to be 403 // Object.is equality
+
+- Expected
++ Received
+
+- 403
++ 200
+
+ ❯ src/tests/task-route-auth.test.ts:94:24
+     92|     const res = await PATCH(patchRequest({ status: "done" }), params);
+     93| 
+     94|     expect(res.status).toBe(403);
+       |                        ^
+     95|     await expect(res.json()).resolves.toEqual({
+     96|       error: "viewers cannot update tasks",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  2 failed | 13 passed (15)
+   Start at  11:06:05
+   Duration  2.07s (transform 217ms, setup 767ms, collect 493ms, tests 191ms, environment 3.62s, prepare 531ms)
+
+⠙%                                                                                                                                          
+ 
+
+ravirajbugge@RBs-MacBook-Air ajackus_test % npm run test
+
+
+> taskboard@0.1.0 test
+> vitest run
+
+The CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.
+
+ RUN  v2.1.8 /Applications/MAMP/htdocs/ajackus_test
+
+ ✓ src/tests/schemas.test.ts (7)
+ ✓ src/tests/schemas.test.ts (7)
+ · src/tests/auth.test.ts (2)
+ ✓ src/tests/schemas.test.ts (7)
+ ✓ src/tests/auth.test.ts (2)
+ · src/tests/task-route-auth.test.ts (3)
+ ✓ src/tests/schemas.test.ts (7)
+ ✓ src/tests/auth.test.ts (2)
+ ✓ src/tests/task-route-auth.test.ts (3)
+ ✓ src/tests/schemas.test.ts (7)
+ · src/tests/TaskCard.test.tsx (3)
+ ✓ src/tests/auth.test.ts (2)
+ ✓ src/tests/task-route-auth.test.ts (3)
+ ✓ src/tests/schemas.test.ts (7)
+ ✓ src/tests/TaskCard.test.tsx (3)
+ ✓ src/tests/auth.test.ts (2)
+ ✓ src/tests/TaskCard.test.tsx (3)
+ ✓ src/tests/auth.test.ts (2)
+ ✓ src/tests/schemas.test.ts (7)
+ ✓ src/tests/task-route-auth.test.ts (3)
+
+ Test Files  4 passed (4)
+      Tests  15 passed (15)
+   Start at  11:06:26
+   Duration  1.56s (transform 191ms, setup 713ms, collect 493ms, tests 165ms, environment 2.32s, prepare 249ms)
+
+⠙%                                                                                                                                          
+ 
+
+ravirajbugge@RBs-MacBook-Air ajackus_test % 
+
+
+Script done on Tue May 26 11:06:32 2026
